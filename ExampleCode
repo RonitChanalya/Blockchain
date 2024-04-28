@@ -1,0 +1,62 @@
+import java.util.*;
+
+public class Blockchain {
+    public static void main(String[] args) {
+        ArrayList<Block> blockChain = new ArrayList<Block>();     
+        String[] initialValues = {"Ronit has $700", "Elon has $699"};
+        Block firstBlock = new Block(initialValues, 0);
+        blockChain.add(firstBlock);
+        System.out.println("First Block is: " + firstBlock.toString());
+        System.out.println("The Blockchain is: " + blockChain.toString());
+
+        // Block 2
+        String[] ronitGivesItAway = {"Ronit gives Elon $100", "Ronit gives Jeff $100"};
+        Block secondBlock = new Block(ronitGivesItAway, firstBlock.getBlockHash());
+        blockChain.add(secondBlock);
+        System.out.println("Second Block is: " + secondBlock.toString());
+        System.out.println("The Blockchain is: " + blockChain.toString());
+
+    }
+}
+// Demonstrate a series of blocks in a chain
+class Block{
+    private String[] transactions;
+    private int blockHash;
+    private int previousBlockHash;
+
+
+    @Override
+    public String toString() {
+        return "Block [transactions=" + Arrays.toString(transactions) + ", blockHash=" + blockHash
+                + ", previousBlockHash=" + previousBlockHash + "]";
+    }
+
+
+    public Block(String[] transactions, int previousBlockHash) {
+        this.transactions = transactions;
+        this.previousBlockHash = previousBlockHash;
+        this.blockHash = Arrays.hashCode(new int[] {Arrays.hashCode(transactions) , this.previousBlockHash});
+    }
+
+
+    public String[] getTransactions() {
+        return transactions;
+    }
+    public void setTransactions(String[] transactions) {
+        this.transactions = transactions;
+    }
+    public int getBlockHash() {
+        return blockHash;
+    }
+    public void setBlockHash(int blockHash) {
+        this.blockHash = blockHash;
+    }
+    public int getPreviousBlockHash() {
+        return previousBlockHash;
+    }
+    public void setPreviousBlockHash(int previousBlockHash) {
+        this.previousBlockHash = previousBlockHash;
+    }
+    
+    
+}
